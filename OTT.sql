@@ -485,7 +485,7 @@ INSERT INTO `series_genres` (`series_id`, `genre_id`) VALUES
     (19, 19), (19, 24), (19, 20),
     (20, 23), (20, 4), (20, 24),
     (21, 21), (21, 4), (21, 17),
-    (22, 22), (22, 12), (22, 13),
+    (22, 4), (22, 12), (22, 13),
     (23, 23), (23, 25), (23, 16);
 
 -- ACTORS
@@ -755,7 +755,7 @@ VALUES
     (122, 23, 'Narrator'),
     (123, 23, 'Narrator');
 
--- MOVIE AWARDS
+-- MOVIE AWARDS (Randomly Generated)
 INSERT INTO `movie_awards` (`movie_id`, `award_org`, `award_title`, `award_status`) VALUES
     (1, 'Academy Awards', 'Best Picture', 'Won'),
     (2, 'Golden Globe Awards', 'Best Actor', 'Nominated'),
@@ -802,7 +802,7 @@ INSERT INTO `movie_awards` (`movie_id`, `award_org`, `award_title`, `award_statu
     (43, 'Golden Globe Awards', 'Best Motion Picture', 'Nominated'),
     (44, 'Sundance Film Festival', 'Best Film Feature', 'Won');
 
--- SERIES AWARDS
+-- SERIES AWARDS (Randomly Generated)
 INSERT INTO `series_awards` (`series_id`, `award_org`, `award_title`, `award_status`) VALUES
     (1, 'Golden Globe Awards', 'Best Ensemble Performance', 'Nominated'),
     (2, 'Primetime Emmy Awards', 'Outstanding Direction', 'Won'),
@@ -836,6 +836,7 @@ VALUES
 ('movie', 14, NULL, 3, '2013-08-19', 'Tarantinos fiercely grossing action flick on blaxploitation is a cheer inviting cake of blood highlighting the age old conflict ridden relationship between the 2 sides of a game of chess - the Whites and Blacks, as they are called.'),
 ('series', NULL, 10, 4, '2021-10-30', 'The storyline is full of unpredictable surprises which leave you scratching your head. Every season has its own set of twists and turns which keeps the audience entertained, thrilled and glued to the screen till the last episode.');
 
+-- MOVIE REVIEWS (Randomly Generated)
 INSERT INTO `movie_reviews` (`user_profile_id`, `movie_id`, `review_text`, `rating`, `date_added`, `time_added`)
 VALUES
 (1, 1, 'I really enjoyed this one! The story was captivating, and the performances were outstanding.', 8.5, '2024-11-10', '15:32:11'),
@@ -869,7 +870,7 @@ VALUES
 (8, 15, 'This was a game-changer. The message was powerful, and the film itself was groundbreaking.', 9.5, '2024-11-10', '10:11:42'),
 (4, 15, 'I was let down by this one. The concept had so much potential, but the execution didnt live up to it.', 5.2, '2024-11-17', '22:14:53'),
 (6, 16, 'I loved how unpredictable this one was. It had me guessing the entire time, which is always a win.', 8.7, '2024-11-14', '21:02:11'),
-(7, 16, 'This one was a letdown for me. It was too focused on style over substance, and it just didnt connect.', 1.2, '2024-11-18', '13:23:16'),
+(7, 16, 'This has to be one of Studio Ghiblis best films ever, its going to stay with me for a while', 9.2, '2024-11-18', '13:23:16'),
 (1, 17, 'I was so moved by this one. The plot was gripping, and the emotional weight really hit home.', 9.0, '2024-11-09', '10:37:49'),
 (3, 17, 'I really liked this film. It was bold and unique, and I appreciated the fresh perspective.', 8.6, '2024-11-22', '18:29:41'),
 (5, 18, 'Such a beautiful journey. It was emotionally powerful and really made an impact on me.', 9.3, '2024-11-11', '15:48:30'),
@@ -893,8 +894,8 @@ VALUES
 (8, 27, 'A predictable plot that failed to engage me. Not what I was hoping for.', 4.7, '2024-11-10', '11:15:44'),
 (4, 27, 'A visually stunning and emotionally impactful movie. A true emotional rollercoaster.', 8.4, '2024-11-13', '22:02:18'),
 (6, 28, 'A breathtaking spectacle of cinematic artistry. I was in awe from beginning to end.', 9.0, '2024-11-09', '12:48:30'),
-(7, 28, 'A compelling narrative with an unforgettable climax. This one will stay with me for a while.', 8.3, '2024-11-22', '18:57:09'),
-(1, 29, 'Poorly written dialogue and unconvincing acting. It didnt work for me at all.', 5.3, '2024-11-12', '09:12:54'),
+(7, 28, 'A compelling narrative with an unforgettable climax. This one will stay with me for a while.', 5.3, '2024-11-22', '18:57:09'),
+(1, 29, 'One of the most unforgettable classics of our childhoods, there will never be another film like this one', 9.3, '2024-11-12', '09:12:54'),
 (3, 29, 'A thoughtful and engaging exploration of humanity. Really made me think about things.', 9.2, '2024-11-19', '16:22:18'),
 (5, 30, 'A mesmerizing film with profound meaning. I couldnt stop thinking about it afterwards.', 9.3, '2024-11-16', '20:44:33'),
 (2, 30, 'A sluggish pace makes it a chore to watch. Not my cup of tea.', 3.9, '2024-11-20', '10:34:41'),
@@ -927,6 +928,7 @@ VALUES
 (6, 44, 'A thought-provoking story with a powerful message. Really made me think about the world.', 9.3, '2024-11-10', '10:41:12'),
 (7, 44, 'A phenomenal journey through an unforgettable narrative. A truly incredible film.', 8.7, '2024-11-17', '20:15:44');
 
+-- SERIES REVIEWS (Randomly Generated)
 INSERT INTO `series_reviews` (`user_profile_id`, `series_id`, `review_text`, `rating`, `date_added`, `time_added`)
 VALUES
 (1, 1, 'I loved this series! The characters were so well-developed, and the story really pulled me in.', 8.5, '2024-09-15', '14:23:45'),
@@ -975,3 +977,76 @@ VALUES
 (7, 22, 'This series sets a new standard in storytelling. So impressive and exciting to watch.', 8.8, '2024-09-14', '12:55:50'),
 (1, 23, 'This story really kept me hooked! I was on the edge of my seat the whole time.', 9.0, '2024-07-29', '14:20:15'),
 (4, 23, 'Such a beautiful series! It really pulled at my heartstrings.', 8.7, '2024-08-15', '15:35:00');
+
+-- WATCHLISTS
+INSERT INTO `watchlists` (`user_profile_id`, `list_type`)
+VALUES
+(1, 'movies'),
+(1, 'series'),
+(2, 'movies'),
+(2, 'series'),
+(3, 'movies'),
+(3, 'series'),
+(4, 'movies'),
+(4, 'series'),
+(5, 'movies'),
+(5, 'series'),
+(6, 'movies'),
+(6, 'series'),
+(7, 'movies'),
+(7, 'series'),
+(8, 'movies'),
+(8, 'series');
+
+-- MOVIE WATCHLISTS (Randomly Generated)
+INSERT INTO `movie_watchlists` (`movie_watchlist_id`, `movie_id`, `time_added`, `date_added`)
+VALUES
+(1, 5, '12:23:15', '2024-11-15'),
+(3, 18, '16:08:37', '2024-11-12'),
+(5, 22, '09:55:45', '2024-11-20'),
+(7, 7, '14:14:20', '2024-11-10'),
+(9, 19, '08:01:34', '2024-11-17'),
+(11, 35, '16:43:25', '2024-11-22'),
+(13, 40, '10:12:55', '2024-11-13'),
+(15, 12, '20:19:10', '2024-11-18'),
+(1, 2, '15:30:47', '2024-11-14'),
+(3, 23, '07:12:11', '2024-11-09'),
+(5, 36, '12:05:32', '2024-11-19'),
+(7, 9, '13:35:29', '2024-11-11'),
+(9, 29, '17:10:22', '2024-11-21'),
+(11, 17, '21:29:48', '2024-11-16'),
+(13, 28, '05:45:53', '2024-11-23'),
+(15, 32, '11:07:02', '2024-11-10'),
+(1, 43, '22:05:31', '2024-11-12'),
+(3, 26, '14:01:19', '2024-11-08'),
+(5, 44, '18:15:09', '2024-11-20'),
+(7, 11, '06:14:57', '2024-11-17'),
+(9, 38, '11:45:33', '2024-11-14'),
+(11, 14, '23:59:44', '2024-11-22'),
+(13, 8, '16:08:00', '2024-11-18'),
+(15, 24, '09:30:03', '2024-11-19'),
+(1, 21, '22:45:10', '2024-11-11'),
+(3, 16, '07:25:17', '2024-11-15'),
+(5, 10, '10:12:50', '2024-11-08'),
+(7, 33, '09:18:49', '2024-11-21'),
+(9, 20, '03:55:42', '2024-11-13'),
+(11, 31, '15:18:27', '2024-11-16');
+
+-- SERIES WATCHLISTS (Randomly Generated)
+INSERT INTO `series_watchlists` (`series_watchlist_id`, `series_id`, `time_added`, `date_added`)
+VALUES
+(2, 3, '14:23:45', '2024-10-21'),
+(4, 6, '09:12:33', '2024-10-11'),
+(6, 9, '18:45:12', '2024-11-05'),
+(8, 12, '22:10:59', '2024-10-30'),
+(10, 15, '07:30:15', '2024-09-20'),
+(12, 18, '13:44:23', '2024-11-01'),
+(14, 21, '16:27:10', '2024-08-18'),
+(16, 23, '19:59:45', '2024-07-14'),
+(16, 13, '11:13:37', '2024-10-25'),
+(4, 5, '08:45:52', '2024-12-03'),
+(6, 3, '21:30:00', '2024-11-19'),
+(8, 6, '06:05:15', '2024-09-11'),
+(10, 19, '17:22:33', '2024-10-29'),
+(12, 12, '12:10:55', '2024-11-24'),
+(14, 14, '23:45:22', '2024-12-01');

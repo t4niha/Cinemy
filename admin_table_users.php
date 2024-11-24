@@ -355,8 +355,8 @@ if (isset($_POST['delete_acc'])) {
 </div>
 
 <main>
-    <h3 style="color: #333">Users in Database:</h3>
-    <p style="color: #333">(<strong>Accounts: </strong><?php echo htmlspecialchars($account_count);?> | <strong>Profiles: </strong><?php echo htmlspecialchars($profile_count);?>)</p>
+    <h3 style="margin-bottom: 12px; color: #333;">Users in Database:</h3>
+    <p style="margin-top: 0px; color: #333;">(<strong>Accounts: </strong><?php echo htmlspecialchars($account_count);?> | <strong>Profiles: </strong><?php echo htmlspecialchars($profile_count);?>)</p>
     <div class="filter-box">
         <form action="admin_table_users.php" method="POST" class="filter-form">
             <!-- Subscription filter -->

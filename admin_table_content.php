@@ -410,8 +410,8 @@ if (isset($_POST['delete_movie'])) {
 </div>
 
 <main>
-    <h3 style="color: #333">Contents in Database:</h3>
-    <p style="color: #333">(<strong>Movies: </strong><?php echo htmlspecialchars($movie_count);?> | <strong>Series: </strong><?php echo htmlspecialchars($series_count);?>)</p>
+    <h3 style="margin-bottom: 12px; color: #333;">Contents in Database:</h3>
+    <p style="margin-top: 0px; color: #333;">(<strong>Movies: </strong><?php echo htmlspecialchars($movie_count);?> | <strong>Series: </strong><?php echo htmlspecialchars($series_count);?>)</p>
     <div class="filter-box">
         <form action="admin_table_content.php" method="POST" class="filter-form">
             <!-- Content type filter -->
