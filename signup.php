@@ -4,6 +4,11 @@ session_start();
 // DB connection
 require '_DB_connection.php';
 
+// PHPMailer
+require 'vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // Error essage initialization
 $error_message = "";
 
@@ -64,17 +69,25 @@ if (isset($_POST['signup'])) {
                 // Validate admin key
                 if (empty($admin_key) || strtolower($admin_key) !== "cse311") {
                     $error_message = " Incorrect or missing admin key ";
-                } else {
-                    // DB query: add new admin account
-                    $query = "INSERT INTO admin_accounts (admin_account_email, username, password) VALUES (?, ?, ?)";
+                }
+                else {
+                    // Generate email verification code
+                    $verification_code = rand(100000, 999999);
+
+                    // DB query: add admin and verification details to the database
+                    $query = "INSERT INTO admin_accounts (admin_account_email, username, password, verification_code) 
+                    VALUES (?, ?, ?, ?)";
                     $stmt = $conn->prepare($query);
-                    $stmt->bind_param('sss', $email, $username, $password);
+                    $stmt->bind_param('ssss', $email, $username, $password, $verification_code);
                     $stmt->execute();
-                    // Set session variables to new admin account details
+
+                    // Save session and redirect to email verification page
+                    $_SESSION['email'] = $email;
+                    $_SESSION['verification_code'] = $verification_code;
                     $_SESSION['user_account_id'] = $conn->insert_id;
                     $_SESSION['username'] = $username;
                     $_SESSION['user_type'] = 'admin';
-                    header('Location: admin_account.php');
+                    header('Location: verify_signup.php');
                     exit();
                 }
             }
@@ -92,18 +105,25 @@ if (isset($_POST['signup'])) {
                 $error_message = ($existingUser['user_account_email'] === $email) 
                     ? " Email already exists for selected account type " 
                     : " Username already exists for selected account type ";
-            } else {
-                // DB query: add new user account
-                $query = "INSERT INTO user_accounts (user_account_email, username, password, subscription_status) VALUES (?, ?, ?, 'inactive')";
+            } 
+            else {
+                // Generate email verification code
+                $verification_code = rand(100000, 999999);
+
+                // DB query: add user and verification details to the database
+                $query = "INSERT INTO user_accounts (user_account_email, username, password, verification_code, subscription_status) 
+                VALUES (?, ?, ?, ?, 'inactive')";
                 $stmt = $conn->prepare($query);
-                $stmt->bind_param('sss', $email, $username, $password);
+                $stmt->bind_param('ssss', $email, $username, $password, $verification_code);
                 $stmt->execute();
-                
-                // Set session variables to new user account details
+
+                // Save session and redirect to email verification page
+                $_SESSION['email'] = $email;
+                $_SESSION['verification_code'] = $verification_code;
                 $_SESSION['user_account_id'] = $conn->insert_id;
                 $_SESSION['username'] = $username;
                 $_SESSION['user_type'] = 'user';
-                header('Location: user_profiles.php');
+                header('Location: verify_signup.php');
                 exit();
             }
         }

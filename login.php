@@ -4,6 +4,11 @@ session_start();
 // DB connection
 require '_DB_connection.php';
 
+// PHPMailer
+require 'vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // Error essage initialization
 $error_message = "";
 
@@ -31,49 +36,69 @@ if (isset($_POST['login'])) {
     $user = $result->fetch_assoc();
     if (!$user) {
         $error_message = " Username does not exist for selected account type ";
-    } else {
+    } 
+    else {
         if ($password === $user['password']) {
-            // Set session variables to login details
-            $_SESSION['user_account_id'] = $user[$account_id];
+            // Generate a verification code and set session variables
+            $verification_code = rand(100000, 999999);
+            $_SESSION['verification_code'] = $verification_code;
             $_SESSION['username'] = $user['username'];
+            $_SESSION['user_account_id'] = $user[$account_id];
             $_SESSION['user_type'] = $user_type;
-
-            // Redirect user/admin to respective homepage
-            if ($user_type === 'user') {
-                header('Location: user_profiles.php');
-                exit();
-            } elseif ($user_type === 'admin') {
-                header('Location: admin_account.php');
-                exit();
+            if($user_type === 'user')
+            {
+                $email = $user['user_account_email'];
+                // DB query: add new user verification code
+                $query = "UPDATE user_accounts SET verification_code= ? WHERE username = ?;";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('ss', $verification_code, $username);
+                $stmt->execute();;
             }
-        } else {
+            else
+            {
+                $email = $user['admin_account_email'];
+                // DB query: add new admin verification code
+                $query = "UPDATE admin_accounts SET verification_code= ? WHERE username = ?;";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('ss', $verification_code, $username);
+                $stmt->execute();
+            }
+            $_SESSION['email'] = $email;
+
+            // Send the verification code via email
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'cinemybd@gmail.com';
+                $mail->Password = 'mhewrhfxcrppzvhe';  
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                $mail->setFrom('cinemybd@gmail.com', 'Cinemy Admin');
+                $mail->addAddress($email, 'CinemyAdmin');
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Login Verification Code';
+                $mail->Body = "<h3>Hello, $username!</h3>
+                               <p>Your login verification code is: <strong>$verification_code</strong></p>";
+
+                if($mail->send())
+                {
+                    echo 'email has been sent';
+                    header('Location: verify_login.php');
+                    exit();
+                }
+            } 
+            catch (Exception $e) {
+                $error_message = "Verification email could not be sent. Error: {$mail->ErrorInfo}";
+            }
+        } 
+        else {
             $error_message = " Incorrect password ";
         }
     }
-}
-
-// DB query: Retrieve user account and profile information
-$query = 
-    "SELECT ua.subscription_status, ua.payment_info, ua.user_account_email
-    FROM user_profiles up
-    JOIN user_accounts ua ON up.user_account_id = ua.user_account_id
-    WHERE ua.user_account_id = ? LIMIT 1";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $user_account_id);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc(); 
-    
-    $subscription_status = $user['subscription_status'];
-    $payment_info = $user['payment_info'] ? $user['payment_info'] : 'None';
-    $user_account_email = $user['user_account_email'];
-}
-else { 
-    $username = 'Unknown User';
-    $subscription_status = 'Inactive';
-    $payment_info = 'No payment info available';
-    $user_account_email = 'No email available';
 }
 
 ?>

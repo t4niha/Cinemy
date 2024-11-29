@@ -26,6 +26,7 @@ CREATE TABLE `admin_accounts` (
   `admin_account_email` varchar(60) NOT NULL UNIQUE,
   `username` varchar(60) NOT NULL UNIQUE,
   `password` varchar(60) NOT NULL,
+  `verification_code` varchar(6) NULL,
   PRIMARY KEY (`admin_account_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -37,6 +38,7 @@ CREATE TABLE `user_accounts` (
   `password` varchar(60) NOT NULL,
   `subscription_status` ENUM('active', 'inactive') DEFAULT 'inactive',
   `payment_info` varchar(60) DEFAULT NULL,
+  `verification_code` varchar(6) NULL,
   PRIMARY KEY (`user_account_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

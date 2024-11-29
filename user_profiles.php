@@ -11,8 +11,8 @@ if (!isset($_SESSION['user_account_id'])) {
 }
 
 // Retrieve session data
-$username = $_SESSION['username'];  // The username stored during login
-$user_account_id = $_SESSION['user_account_id'];    // The user ID stored during login
+$username = $_SESSION['username'];
+$user_account_id = $_SESSION['user_account_id'];
 
 // Error essage initialization
 $error_message = "";
